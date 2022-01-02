@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\KariyerNet.Core\KariyerNet.Core.csproj" />
+    <ProjectReference Include="..\KariyerNet.Data\KariyerNet.Data.csproj" />
+    <ProjectReference Include="..\KariyerNet.Dto\KariyerNet.Dto.csproj" />
+    <ProjectReference Include="..\KariyerNet.Service\KariyerNet.Service.csproj" />
+  </ItemGroup>
+
+
+</Project>
