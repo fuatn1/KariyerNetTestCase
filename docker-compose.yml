@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  kariyernet.api:
+    image: ${DOCKER_REGISTRY-}kariyernetapi
+    build:
+      context: .
+      dockerfile: KariyerNet.API/Dockerfile

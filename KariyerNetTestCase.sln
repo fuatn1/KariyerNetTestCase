@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KariyerNet.Business", "Kari
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KariyerNet.Dto", "KariyerNet.Dto\KariyerNet.Dto.csproj", "{558F47E4-E10D-4EED-A739-1D0B728556DD}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{3272CEB7-49F5-433B-914A-60CBC018FCDB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{558F47E4-E10D-4EED-A739-1D0B728556DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{558F47E4-E10D-4EED-A739-1D0B728556DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{558F47E4-E10D-4EED-A739-1D0B728556DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3272CEB7-49F5-433B-914A-60CBC018FCDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3272CEB7-49F5-433B-914A-60CBC018FCDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3272CEB7-49F5-433B-914A-60CBC018FCDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3272CEB7-49F5-433B-914A-60CBC018FCDB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
