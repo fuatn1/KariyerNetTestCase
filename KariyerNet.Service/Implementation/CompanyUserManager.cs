@@ -5,6 +5,7 @@ using KariyerNet.Dto;
 using Mapster;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,15 +21,26 @@ namespace KariyerNet.Busines.Implementation
         }
         public CompanyUserDto Add(CompanyUserDto entity)
         {
+            if (PhoneNumberIsExist(entity))
+            {
+                throw new Exception("Telefon numarası kayıtlı. Aynı telefon numarası ile tekrar kayıt yapılamaz..");
+            }
             var company = entity.Adapt<CompanyUser>();
             company.CreateDate = DateTime.Now;
             _companyUserRepository.Add(company);
             return company.Adapt<CompanyUserDto>();
         }
 
-        public bool ControlMaxJobAdvertisementCount(CompanyUserDto company)
+        public bool PhoneNumberIsExist(CompanyUserDto company)
         {
-            throw new NotImplementedException();
+            var companyUser = company.Adapt<CompanyUser>();
+            var data = Where(x => x.PhoneNumber == companyUser.PhoneNumber).ToList();
+
+            if (data.Count < 1)
+            {
+                return false;
+            }
+            return true;
         }
 
         public IEnumerable<CompanyUserDto> GetAll()
@@ -72,10 +84,10 @@ namespace KariyerNet.Busines.Implementation
             return result.Adapt<CompanyUserDto>();
         }
 
-        public IEnumerable<CompanyUserDto> Where(Expression<Func<CompanyUserDto, bool>> expression)
+        public IEnumerable<CompanyUserDto> Where(Expression<Func<CompanyUser, bool>> expression)
         {
 
-            var result = _companyUserRepository.Where(expression.Adapt<Expression<Func<CompanyUser, bool>>>());
+            var result = _companyUserRepository.Where(expression);
             return result.Adapt<IEnumerable<CompanyUserDto>>();
         }
     }

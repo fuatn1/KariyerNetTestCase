@@ -9,7 +9,6 @@ namespace KariyerNet.Data.Entities
         public long CompanyId { get; set; }
         public string CompanyName { get; set; }
         public string CompanyAddress { get; set; }
-        public string PhoneNumber { get; set; }
         public bool IsActive { get ; set ; }
         public bool IsDeleted { get ; set ; }
         public DateTime CreateDate { get ; set ; }

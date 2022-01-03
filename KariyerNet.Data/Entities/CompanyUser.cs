@@ -12,6 +12,7 @@ namespace KariyerNet.Data.Entities
         public string Password { get; set; }
         public bool IsActive { get ; set ; }
         public bool IsDeleted { get ; set ; }
+        public string PhoneNumber { get; set; }
         public DateTime CreateDate { get ; set ; }
         public DateTime UpdateDate { get ; set ; }
         public DateTime DeleteDate { get ; set ; }

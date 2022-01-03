@@ -12,9 +12,9 @@ namespace KariyerNet.API.Filters
     public class NotFoundFilterForCompany : ActionFilterAttribute
     {
         private readonly ICompanyManager _companyManager;
-        public NotFoundFilterForCompany(ICompanyManager companyService)
+        public NotFoundFilterForCompany(ICompanyManager companyManager)
         {
-            _companyManager = companyService;
+            _companyManager = companyManager;
         }
 
         public async override Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)

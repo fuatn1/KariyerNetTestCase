@@ -27,31 +27,31 @@ namespace KariyerNet.API.Controllers
         public IActionResult GetAll()
         {
             var companiesUser = _companyUserService.GetAll();
-            return Ok(_mapper.Map<IEnumerable<CompanyUserDto>>(companiesUser));
+            return Ok(companiesUser);
         }
-        [ServiceFilter(typeof(NotFoundFilterForCompany))]
+        [ServiceFilter(typeof(NotFoundFilterForCompanyUser))]
         [ValidationFilter]
-        [HttpGet("{id}")]
+        [HttpGet("{Id}")]
         public IActionResult GetById(long Id)
         {
             var companyUser = _companyUserService.GetById(Id);
-            return Ok(_mapper.Map<CompanyUserDto>(companyUser));
+            return Ok(companyUser);
         }
         [ValidationFilter]
         [HttpPost]
         public IActionResult Insert(CompanyUserDto CompanyUserDto)
         {
             var Company = _companyUserService.Add(CompanyUserDto);
-            return Ok(_mapper.Map<CompanyUserDto>(Company));
+            return Ok(Company);
         }
         [ValidationFilter]
         [HttpPut]
         public IActionResult Update(CompanyUserDto CompanyUserDto)
         {
-            var updatedCompany = _companyUserService.Update(CompanyUserDto);
+            _companyUserService.Update(CompanyUserDto);
             return NoContent();
         }
-        [ServiceFilter(typeof(NotFoundFilterForCompany))]
+        [ServiceFilter(typeof(NotFoundFilterForCompanyUser))]
         [ValidationFilter]
         [HttpDelete("{id}")]
         public IActionResult Remove(long id)

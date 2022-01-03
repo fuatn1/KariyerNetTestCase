@@ -8,6 +8,6 @@ namespace KariyerNet.Busines.Abstract
 {
     public interface ICompanyManager:IManager<CompanyDto>
     {
-   
+
     }
 }

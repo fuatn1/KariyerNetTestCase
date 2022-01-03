@@ -14,7 +14,6 @@ namespace KariyerNet.Data.Configurations
             builder.HasKey(x => x.CompanyId);
             builder.Property(x => x.CompanyId).UseIdentityColumn();
 
-            builder.Property(x => x.PhoneNumber).IsRequired().HasMaxLength(12);
             builder.Property(x => x.MaxJobAdvertisementCount).IsRequired();
             builder.Property(x => x.CompanyAddress).IsRequired();
             builder.Property(x => x.CompanyName).IsRequired();

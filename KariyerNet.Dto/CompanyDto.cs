@@ -8,12 +8,10 @@ namespace KariyerNet.Dto
     public class CompanyDto
     {
         public long CompanyId { get; set; }
-        [Required]
+        [Required(ErrorMessage = "{0} alanı gereklidir..")]
         public string CompanyName { get; set; }
-        [Required]
+        [Required(ErrorMessage = "{0} alanı gereklidir..")]
         public string CompanyAddress { get; set; }
-        [Required]
-        public string PhoneNumber { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime UpdateDate { get; set; }
         public DateTime DeleteDate { get; set; }

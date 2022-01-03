@@ -26,6 +26,8 @@ using KariyerNet.Data.Repository.Abstract;
 using KariyerNet.Data.UnitOfWorks.Abstract;
 using KariyerNet.Busines.Implementation;
 using Microsoft.OpenApi.Models;
+using KariyerNet.Business.Implementation;
+
 namespace KariyerNet.API
 {
     public class Startup
@@ -41,6 +43,8 @@ namespace KariyerNet.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<NotFoundFilterForCompany>();
+            services.AddScoped<NotFoundFilterForCompanyUser>();
+            services.AddScoped<NotFoundFilterForJob>();
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<ICompanyUserRepository, CompanyUserRepository>();
@@ -54,6 +58,9 @@ namespace KariyerNet.API
                     o.MigrationsAssembly("KariyerNet.Data");
                 });
             });
+            services.AddMongoDbSettings(Configuration);
+            services.AddScoped<IJobManager, JobManager>();
+            services.AddScoped<IJobRepository, JobRepository>();
             services.AddSwaggerGen(c=>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "KariyerNet.API", Version = "v1" });

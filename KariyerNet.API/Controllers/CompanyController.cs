@@ -30,7 +30,7 @@ namespace KariyerNet.API.Controllers
             return Ok(Companies);
         }
         [ServiceFilter(typeof(NotFoundFilterForCompany))]
-        [HttpGet("{id}")]
+        [HttpGet("{Id}")]
         public IActionResult GetById(long Id)
         {
             var company =   _companyManager.GetById (Id);
@@ -47,7 +47,7 @@ namespace KariyerNet.API.Controllers
         [HttpPut]
         public IActionResult Update(CompanyDto companyDto)
         {
-            var updatedCompany = _companyManager.Update(companyDto);
+            _companyManager.Update(companyDto);
             return NoContent();
         }
         [ServiceFilter(typeof(NotFoundFilterForCompany))]

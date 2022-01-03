@@ -41,7 +41,7 @@ namespace KariyerNet.Data.Repositories
 
         public void Remove(TEntity entity)
         {
-            _dbSet.Remove(entity);
+            _context.Entry(entity).State = EntityState.Deleted;
             _context.SaveChanges();
         }
 

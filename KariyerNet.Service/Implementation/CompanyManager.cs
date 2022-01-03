@@ -25,12 +25,13 @@ namespace KariyerNet.Busines.Implementation
         public CompanyDto Add (CompanyDto entity)
         {
             entity.CreateDate = DateTime.Now;
+            entity.MaxJobAdvertisementCount = 2;
             var response = _companyRepository.Add(entity.Adapt<Company>());
 
             return response.Adapt<CompanyDto>();
         }
 
-        public bool ControlMaxJobAdvertisementCount(CompanyDto company)
+        public static bool ControlMaxJobAdvertisementCount(CompanyDto company)
         {
             throw new NotImplementedException();
         }
