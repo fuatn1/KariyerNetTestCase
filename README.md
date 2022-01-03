@@ -1,5 +1,6 @@
 # KariyerNetTestCase
-Aşağıda belirtilen maddeler proje içerisinde kullanılmıştır.
+Belirtilen maddeler proje içerisinde kullanılmıştır.
+-DotNetCore
 -Docker-Compose
 -Swagger
 -Mapster
