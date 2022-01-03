@@ -1,6 +1,7 @@
 ﻿using KariyerNet.Data.Configurations;
 using KariyerNet.Data.Entities;
 using KariyerNet.Data.Repository.Abstract;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -16,10 +17,10 @@ namespace KariyerNet.Data.Repositories
     public class JobRepository : IJobRepository
     {
         protected readonly IMongoCollection<Job> Collection;
-        public JobRepository(IOptions<MongoDbSettings> options)
+        public JobRepository(IConfiguration configuration)
         {
-            var client = new MongoClient("mongodb://root:1234@localhost:27017");
-            var db = client.GetDatabase("KariyerDb");
+            var client = new MongoClient(configuration.GetSection("MongoDb")["ConnectionString"]);
+            var db = client.GetDatabase(configuration.GetSection("MongoDb")["Database"]);
             this.Collection = db.GetCollection<Job>(typeof(Job).Name.ToLowerInvariant());
         }
         public Job Add(Job entity)

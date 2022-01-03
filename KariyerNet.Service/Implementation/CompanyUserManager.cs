@@ -21,26 +21,20 @@ namespace KariyerNet.Busines.Implementation
         }
         public CompanyUserDto Add(CompanyUserDto entity)
         {
-            if (PhoneNumberIsExist(entity))
-            {
-                throw new Exception("Telefon numarası kayıtlı. Aynı telefon numarası ile tekrar kayıt yapılamaz..");
-            }
+            PhoneNumberIsExist(entity);
             var company = entity.Adapt<CompanyUser>();
             company.CreateDate = DateTime.Now;
             _companyUserRepository.Add(company);
             return company.Adapt<CompanyUserDto>();
         }
 
-        public bool PhoneNumberIsExist(CompanyUserDto company)
+        private void PhoneNumberIsExist(CompanyUserDto company)
         {
             var companyUser = company.Adapt<CompanyUser>();
-            var data = Where(x => x.PhoneNumber == companyUser.PhoneNumber).ToList();
+            var data = _companyUserRepository.Where(x => x.PhoneNumber == companyUser.PhoneNumber).ToList();
 
-            if (data.Count < 1)
-            {
-                return false;
-            }
-            return true;
+            if (data.Count < 1) throw new Exception("Telefon numarası kayıtlı. Aynı telefon numarası ile tekrar kayıt yapılamaz..");
+
         }
 
         public IEnumerable<CompanyUserDto> GetAll()
@@ -60,9 +54,10 @@ namespace KariyerNet.Busines.Implementation
             throw new NotImplementedException();
         }
 
-        public void Remove(CompanyUserDto entity)
+        public void Remove(long id)
         {
-            _companyUserRepository.Remove(entity.Adapt<CompanyUser>());
+            var companyUser = _companyUserRepository.GetById(id);
+            _companyUserRepository.Remove(companyUser.Adapt<CompanyUser>());
         }
 
         public void RemoveRange(IEnumerable<CompanyUserDto> entities)
@@ -82,13 +77,6 @@ namespace KariyerNet.Busines.Implementation
             entity.UpdateDate = DateTime.Now;
             var result = _companyUserRepository.Update(entity.Adapt<CompanyUser>());
             return result.Adapt<CompanyUserDto>();
-        }
-
-        public IEnumerable<CompanyUserDto> Where(Expression<Func<CompanyUser, bool>> expression)
-        {
-
-            var result = _companyUserRepository.Where(expression);
-            return result.Adapt<IEnumerable<CompanyUserDto>>();
         }
     }
 }

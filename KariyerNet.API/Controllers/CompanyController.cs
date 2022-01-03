@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using KariyerNet.API.Filters;
+﻿using KariyerNet.API.Filters;
 using KariyerNet.Busines.Abstract;
 using KariyerNet.Data.Entities;
 using KariyerNet.Dto;
@@ -17,11 +16,9 @@ namespace KariyerNet.API.Controllers
     public class CompanyController : ControllerBase
     {
         private readonly ICompanyManager _companyManager;
-        private readonly IMapper _mapper;
-        public CompanyController(ICompanyManager companyService, IMapper mapper)
+        public CompanyController(ICompanyManager companyService)
         {
             _companyManager = companyService;
-            _mapper = mapper;
         }
         [HttpGet]
         public IActionResult GetAll()
@@ -33,15 +30,15 @@ namespace KariyerNet.API.Controllers
         [HttpGet("{Id}")]
         public IActionResult GetById(long Id)
         {
-            var company =   _companyManager.GetById (Id);
-            return Ok(_mapper.Map<CompanyDto>(company));
+            var company = _companyManager.GetById (Id);
+            return Ok(company);
         }
         [ValidationFilter]
         [HttpPost]
         public IActionResult Insert(CompanyDto companyDto)
         {
-            var Company =  _companyManager.Add(companyDto);
-            return Created(string.Empty,Company);
+            var company =  _companyManager.Add(companyDto);
+            return Created(string.Empty,company);
         }
         [ValidationFilter]
         [HttpPut]
@@ -55,8 +52,7 @@ namespace KariyerNet.API.Controllers
         [HttpDelete("{id}")]
         public IActionResult Remove(long id)
         {
-            var company = _companyManager.GetById(id);
-            _companyManager.Remove(company);
+            _companyManager.Remove(id);
 
             return NoContent();
         }

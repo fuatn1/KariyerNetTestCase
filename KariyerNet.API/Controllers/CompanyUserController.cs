@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using KariyerNet.API.Filters;
+﻿using KariyerNet.API.Filters;
 using KariyerNet.Busines.Abstract;
 using KariyerNet.Data.Entities;
 using KariyerNet.Dto;
@@ -17,11 +16,9 @@ namespace KariyerNet.API.Controllers
     public class CompanyUserController : ControllerBase
     {
         private readonly ICompanyUserManager _companyUserService;
-        private readonly IMapper _mapper;
-        public CompanyUserController(ICompanyUserManager companyUserService, IMapper mapper)
+        public CompanyUserController(ICompanyUserManager companyUserService)
         {
             _companyUserService = companyUserService;
-            _mapper = mapper;
         }
         [HttpGet]
         public IActionResult GetAll()
@@ -56,8 +53,7 @@ namespace KariyerNet.API.Controllers
         [HttpDelete("{id}")]
         public IActionResult Remove(long id)
         {
-            var companyUser = _companyUserService.GetById(id);
-            _companyUserService.Remove(companyUser);
+            _companyUserService.Remove(id);
 
             return NoContent();
         }

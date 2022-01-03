@@ -14,7 +14,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
 using KariyerNet.API.Filters;
 using Microsoft.AspNetCore.Diagnostics;
 using KariyerNet.Dto;
@@ -45,7 +44,6 @@ namespace KariyerNet.API
             services.AddScoped<NotFoundFilterForCompany>();
             services.AddScoped<NotFoundFilterForCompanyUser>();
             services.AddScoped<NotFoundFilterForJob>();
-            services.AddAutoMapper(typeof(Startup));
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<ICompanyUserRepository, CompanyUserRepository>();
             services.AddScoped<ICompanyRepository, CompanyRepository>();
@@ -58,7 +56,6 @@ namespace KariyerNet.API
                     o.MigrationsAssembly("KariyerNet.Data");
                 });
             });
-            services.AddMongoDbSettings(Configuration);
             services.AddScoped<IJobManager, JobManager>();
             services.AddScoped<IJobRepository, JobRepository>();
             services.AddSwaggerGen(c=>

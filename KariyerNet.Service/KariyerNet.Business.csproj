@@ -5,13 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="10.1.1" />
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="Mapster" Version="7.2.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\KariyerNet.Core\KariyerNet.Core.csproj" />
     <ProjectReference Include="..\KariyerNet.Data\KariyerNet.Data.csproj" />
     <ProjectReference Include="..\KariyerNet.Dto\KariyerNet.Dto.csproj" />
   </ItemGroup>

@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using KariyerNet.Busines.Abstract;
+﻿using KariyerNet.Busines.Abstract;
 using KariyerNet.Busines.Implementation;
 using KariyerNet.Data.Entities;
 using KariyerNet.Data.Repository.Abstract;

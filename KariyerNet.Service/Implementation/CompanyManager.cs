@@ -1,5 +1,4 @@
 ﻿using KariyerNet.Busines.Abstract;
-using KariyerNet.Business.Mapping;
 using KariyerNet.Data.Entities;
 using KariyerNet.Data.Repository.Abstract;
 using KariyerNet.Dto;
@@ -16,11 +15,9 @@ namespace KariyerNet.Busines.Implementation
     public class CompanyManager : ICompanyManager
     {
         private readonly ICompanyRepository _companyRepository;
-        private readonly AutoMapper.IMapper _mapper;
-        public CompanyManager(ICompanyRepository companyRepository, AutoMapper.IMapper mapper)
+        public CompanyManager(ICompanyRepository companyRepository)
         {
             _companyRepository = companyRepository;
-            _mapper = mapper;
         }
         public CompanyDto Add (CompanyDto entity)
         {
@@ -53,9 +50,10 @@ namespace KariyerNet.Busines.Implementation
             throw new NotImplementedException();
         }
 
-        public void Remove(CompanyDto entity)
+        public void Remove(long id)
         {
-            _companyRepository.Remove(entity.Adapt<Company>());
+            var company = _companyRepository.GetById(id);
+            _companyRepository.Remove(company.Adapt<Company>());
         }
 
         public void RemoveRange(IEnumerable<CompanyDto> entities)
@@ -74,13 +72,6 @@ namespace KariyerNet.Busines.Implementation
             entity.UpdateDate = DateTime.Now;
             var result = _companyRepository.Update(entity.Adapt<Company>());
             return result.Adapt<CompanyDto>();
-        }
-
-        public IEnumerable<CompanyDto> Where(Expression<Func<CompanyDto, bool>> expression)
-        {
-
-            var result = _companyRepository.Where(expression.Adapt<Expression<Func<Company, bool>>>());
-            return result.Adapt<IEnumerable<CompanyDto>>();
         }
     }
 }

@@ -10,7 +10,6 @@ namespace KariyerNet.Dto
 {
     public class JobDto
     {
-        [BsonId]
         public string Id { get; set; }
         [Required(ErrorMessage = "{0} alanı gereklidir..")]
         public string Name { get; set; }
