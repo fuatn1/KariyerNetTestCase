@@ -24,11 +24,10 @@ namespace KariyerNet.Busines.Implementation
         }
         public CompanyDto Add (CompanyDto entity)
         {
-            var company = Mapping.Mapper.Map<Company>(entity);
-            company.CreateDate = DateTime.Now;
-            var response = _companyRepository.Add(company);
+            entity.CreateDate = DateTime.Now;
+            var response = _companyRepository.Add(entity.Adapt<Company>());
 
-            return Mapping.Mapper.Map<CompanyDto>(response);
+            return response.Adapt<CompanyDto>();
         }
 
         public bool ControlMaxJobAdvertisementCount(CompanyDto company)
