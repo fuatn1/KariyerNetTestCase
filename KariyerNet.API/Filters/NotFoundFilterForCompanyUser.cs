@@ -1,4 +1,4 @@
-﻿using KariyerNet.Core.Services;
+﻿using KariyerNet.Busines.Abstract;
 using KariyerNet.Dto;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -11,8 +11,8 @@ namespace KariyerNet.API.Filters
 {
     public class NotFoundFilterForCompanyUser:ActionFilterAttribute
     {
-        private readonly ICompanyUserService _companyUserService;
-        public NotFoundFilterForCompanyUser(ICompanyUserService companyUserService)
+        private readonly ICompanyUserManager _companyUserService;
+        public NotFoundFilterForCompanyUser(ICompanyUserManager companyUserService)
         {
             _companyUserService = companyUserService;
         }
@@ -21,7 +21,7 @@ namespace KariyerNet.API.Filters
         {
             long id = (long)context.ActionArguments.Values.FirstOrDefault();
 
-            var company = await _companyUserService.GetByIdAsync(id);
+            var company = _companyUserService.GetById(id);
             if (company != null)
             {
                 await next();

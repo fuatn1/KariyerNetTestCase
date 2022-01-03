@@ -1,4 +1,4 @@
-﻿using KariyerNet.Core.Services;
+﻿using KariyerNet.Busines.Abstract;
 using KariyerNet.Dto;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -11,17 +11,17 @@ namespace KariyerNet.API.Filters
 {
     public class NotFoundFilterForCompany : ActionFilterAttribute
     {
-        private readonly ICompanyService _companyService;
-        public NotFoundFilterForCompany(ICompanyService companyService)
+        private readonly ICompanyManager _companyManager;
+        public NotFoundFilterForCompany(ICompanyManager companyService)
         {
-            _companyService = companyService;
+            _companyManager = companyService;
         }
 
         public async override Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
             long id = (long)context.ActionArguments.Values.FirstOrDefault();
 
-            var company = await _companyService.GetByIdAsync(id);
+            var company = _companyManager.GetById(id);
             if (company != null)
             {
                 await next();

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace KariyerNet.Core.Models
+namespace KariyerNet.Data.Entities
 {
     public class Offer
     {

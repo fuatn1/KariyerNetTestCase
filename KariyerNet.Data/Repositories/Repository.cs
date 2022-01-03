@@ -4,7 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
-using KariyerNet.Core.Repositories;
+using KariyerNet.Data.Repository.Abstract;
 using Microsoft.EntityFrameworkCore;
 
 namespace KariyerNet.Data.Repositories
@@ -18,49 +18,48 @@ namespace KariyerNet.Data.Repositories
             _context = context;
             _dbSet = context.Set<TEntity>();
         }
-        public async Task AddAsync(TEntity entity)
+        public TEntity Add(TEntity entity)
         {
-            await _dbSet.AddAsync(entity);
+            _dbSet.Add(entity);
+            _context.SaveChanges();
+            return entity;
+        }
+        public IEnumerable<TEntity> Where(Expression<Func<TEntity, bool>> expression)
+        {
+            return  _dbSet.Where(expression);
         }
 
-        public async Task AddRangeAsync(IEnumerable<TEntity> entities)
+        public IEnumerable<TEntity> GetAll()
         {
-            await _dbSet.AddRangeAsync(entities);
+            return _dbSet.ToList();
         }
 
-        public async Task<IEnumerable<TEntity>> Where(Expression<Func<TEntity, bool>> expression)
+        public TEntity GetById(long id)
         {
-            return await _dbSet.Where(expression).ToListAsync();
-        }
-
-        public async Task<IEnumerable<TEntity>> GetAllAsync()
-        {
-            return await _dbSet.ToListAsync();
-        }
-
-        public async Task<TEntity> GetByIdAsync(long id)
-        {
-            return await _dbSet.FindAsync(id);
+            return  _dbSet.Find(id);
         }
 
         public void Remove(TEntity entity)
         {
             _dbSet.Remove(entity);
+            _context.SaveChanges();
         }
 
         public void RemoveRange(IEnumerable<TEntity> entities)
         {
             _dbSet.RemoveRange(entities);
+            _context.SaveChanges();
         }
 
-        public async Task<TEntity> SingleOrDefaultAsync(Expression<Func<TEntity, bool>> expression)
+        public TEntity SingleOrDefault(Expression<Func<TEntity, bool>> expression)
         {
-            return await _dbSet.SingleOrDefaultAsync(expression);
+            return  _dbSet.SingleOrDefault(expression);
         }
 
         public TEntity Update(TEntity entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
+            _context.SaveChanges();
             return entity;
         }
     }

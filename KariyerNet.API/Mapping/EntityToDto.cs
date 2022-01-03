@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using KariyerNet.Core.Models;
+using KariyerNet.Data.Entities;
 using KariyerNet.Dto;
 using System;
 using System.Collections.Generic;

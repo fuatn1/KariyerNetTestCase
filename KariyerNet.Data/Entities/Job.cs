@@ -1,11 +1,10 @@
-﻿using KariyerNet.Core.Abstract;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace KariyerNet.Core.Models
+namespace KariyerNet.Data.Entities
 {
-    public class Job : IStatusModel, ITimeInfoModel, IUserInfoModel
+    public class Job 
     {
         public string Name { get; set; }
         public string Description { get; set; }

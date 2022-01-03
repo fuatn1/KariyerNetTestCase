@@ -1,12 +1,13 @@
-﻿using KariyerNet.Core.Models;
+﻿using KariyerNet.Data.Entities;
+using KariyerNet.Dto;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KariyerNet.Core.Services
+namespace KariyerNet.Busines.Abstract
 {
-    public interface IJobService:IService<Job>
+    public interface IJobManager:IManager<JobDto>
     {
         Task<Job> GetWithJobByIdAsync(int jobId);
 

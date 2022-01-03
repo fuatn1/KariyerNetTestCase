@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using KariyerNet.API.Filters;
-using KariyerNet.Core.Models;
-using KariyerNet.Core.Services;
+using KariyerNet.Busines.Abstract;
+using KariyerNet.Data.Entities;
 using KariyerNet.Dto;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,47 +16,47 @@ namespace KariyerNet.API.Controllers
     [ApiController]
     public class CompanyController : ControllerBase
     {
-        private readonly ICompanyService _companyService;
+        private readonly ICompanyManager _companyManager;
         private readonly IMapper _mapper;
-        public CompanyController(ICompanyService companyService, IMapper mapper)
+        public CompanyController(ICompanyManager companyService, IMapper mapper)
         {
-            _companyService = companyService;
+            _companyManager = companyService;
             _mapper = mapper;
         }
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public IActionResult GetAll()
         {
-            var Companies = await _companyService.GetAllAsync();
-            return Ok(_mapper.Map<IEnumerable<CompanyDto>>(Companies));
+            var Companies =   _companyManager.GetAll ();
+            return Ok(Companies);
         }
         [ServiceFilter(typeof(NotFoundFilterForCompany))]
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(long Id)
+        public IActionResult GetById(long Id)
         {
-            var company = await _companyService.GetByIdAsync(Id);
+            var company =   _companyManager.GetById (Id);
             return Ok(_mapper.Map<CompanyDto>(company));
         }
         [ValidationFilter]
         [HttpPost]
-        public async Task<IActionResult> Insert(CompanyDto companyDto)
+        public IActionResult Insert(CompanyDto companyDto)
         {
-            var Company = await _companyService.AddAsync(_mapper.Map<Company>(companyDto));
-            return Created("", _mapper.Map<CompanyDto>(Company));
+            var Company =  _companyManager.Add(companyDto);
+            return Created(string.Empty,Company);
         }
         [ValidationFilter]
         [HttpPut]
         public IActionResult Update(CompanyDto companyDto)
         {
-            var updatedCompany = _companyService.Update(_mapper.Map<Company>(companyDto));
+            var updatedCompany = _companyManager.Update(companyDto);
             return NoContent();
         }
         [ServiceFilter(typeof(NotFoundFilterForCompany))]
         [ValidationFilter]
         [HttpDelete("{id}")]
-        public IActionResult Remove(int id)
+        public IActionResult Remove(long id)
         {
-            var company = _companyService.GetByIdAsync(id).Result;
-            _companyService.Remove(company);
+            var company = _companyManager.GetById(id);
+            _companyManager.Remove(company);
 
             return NoContent();
         }

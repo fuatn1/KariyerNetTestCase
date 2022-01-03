@@ -1,6 +1,6 @@
-﻿using KariyerNet.Core.Repositories;
-using KariyerNet.Core.UnitOfWorks;
-using KariyerNet.Data.Repositories;
+﻿using KariyerNet.Data.Repositories;
+using KariyerNet.Data.Repository.Abstract;
+using KariyerNet.Data.UnitOfWorks.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Text;

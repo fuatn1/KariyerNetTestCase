@@ -1,10 +1,10 @@
-﻿using KariyerNet.Core.Repositories;
+﻿using KariyerNet.Data.Repository.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KariyerNet.Core.UnitOfWorks
+namespace KariyerNet.Data.UnitOfWorks.Abstract
 {
     public interface IUnitOfWork
     { 

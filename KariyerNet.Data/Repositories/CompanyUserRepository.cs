@@ -1,5 +1,5 @@
-﻿using KariyerNet.Core.Models;
-using KariyerNet.Core.Repositories;
+﻿using KariyerNet.Data.Entities;
+using KariyerNet.Data.Repository.Abstract;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

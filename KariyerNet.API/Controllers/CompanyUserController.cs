@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using KariyerNet.API.Filters;
-using KariyerNet.Core.Models;
-using KariyerNet.Core.Services;
+using KariyerNet.Busines.Abstract;
+using KariyerNet.Data.Entities;
 using KariyerNet.Dto;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,47 +16,47 @@ namespace KariyerNet.API.Controllers
     [ApiController]
     public class CompanyUserController : ControllerBase
     {
-        private readonly ICompanyUserService _companyUserService;
+        private readonly ICompanyUserManager _companyUserService;
         private readonly IMapper _mapper;
-        public CompanyUserController(ICompanyUserService companyUserService, IMapper mapper)
+        public CompanyUserController(ICompanyUserManager companyUserService, IMapper mapper)
         {
             _companyUserService = companyUserService;
             _mapper = mapper;
         }
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public IActionResult GetAll()
         {
-            var companiesUser = await _companyUserService.GetAllAsync();
+            var companiesUser = _companyUserService.GetAll();
             return Ok(_mapper.Map<IEnumerable<CompanyUserDto>>(companiesUser));
         }
         [ServiceFilter(typeof(NotFoundFilterForCompany))]
         [ValidationFilter]
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int Id)
+        public IActionResult GetById(long Id)
         {
-            var companyUser = await _companyUserService.GetByIdAsync(Id);
+            var companyUser = _companyUserService.GetById(Id);
             return Ok(_mapper.Map<CompanyUserDto>(companyUser));
         }
         [ValidationFilter]
         [HttpPost]
-        public async Task<IActionResult> Insert(CompanyUserDto CompanyUserDto)
+        public IActionResult Insert(CompanyUserDto CompanyUserDto)
         {
-            var Company = await _companyUserService.AddAsync(_mapper.Map<CompanyUser>(CompanyUserDto));
-            return Created("", _mapper.Map<CompanyUserDto>(Company));
+            var Company = _companyUserService.Add(CompanyUserDto);
+            return Ok(_mapper.Map<CompanyUserDto>(Company));
         }
         [ValidationFilter]
         [HttpPut]
         public IActionResult Update(CompanyUserDto CompanyUserDto)
         {
-            var updatedCompany = _companyUserService.Update(_mapper.Map<CompanyUser>(CompanyUserDto));
+            var updatedCompany = _companyUserService.Update(CompanyUserDto);
             return NoContent();
         }
         [ServiceFilter(typeof(NotFoundFilterForCompany))]
         [ValidationFilter]
         [HttpDelete("{id}")]
-        public IActionResult Remove(int id)
+        public IActionResult Remove(long id)
         {
-            var companyUser = _companyUserService.GetByIdAsync(id).Result;
+            var companyUser = _companyUserService.GetById(id);
             _companyUserService.Remove(companyUser);
 
             return NoContent();

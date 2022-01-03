@@ -1,10 +1,6 @@
-using KariyerNet.Core.Repositories;
-using KariyerNet.Core.Services;
-using KariyerNet.Core.UnitOfWorks;
 using KariyerNet.Data;
 using KariyerNet.Data.Repositories;
 using KariyerNet.Data.UnitOfWorks;
-using KariyerNet.Service.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -25,7 +21,11 @@ using KariyerNet.Dto;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using KariyerNet.API.Extensions;
-
+using KariyerNet.Busines.Abstract;
+using KariyerNet.Data.Repository.Abstract;
+using KariyerNet.Data.UnitOfWorks.Abstract;
+using KariyerNet.Busines.Implementation;
+using Microsoft.OpenApi.Models;
 namespace KariyerNet.API
 {
     public class Startup
@@ -43,17 +43,21 @@ namespace KariyerNet.API
             services.AddScoped<NotFoundFilterForCompany>();
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-            services.AddScoped(typeof(IService<>), typeof(Service.Services.Service<>));
-            services.AddScoped<ICompanyService, CompanyService>();
-            services.AddScoped<ICompanyUserService, CompanyUserService>();
+            services.AddScoped<ICompanyUserRepository, CompanyUserRepository>();
+            services.AddScoped<ICompanyRepository, CompanyRepository>();
+            services.AddScoped<ICompanyManager, CompanyManager>();
+            services.AddScoped<ICompanyUserManager, CompanyUserManager>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddDbContext<KariyerDbContext>(options =>
             {
                 options.UseNpgsql(Configuration.GetConnectionString("PostgreSql"),o=> {
                     o.MigrationsAssembly("KariyerNet.Data");
                 });
-            }); 
-            
+            });
+            services.AddSwaggerGen(c=>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "KariyerNet.API", Version = "v1" });
+            });
             services.AddControllers();
             services.Configure<ApiBehaviorOptions>(options =>
             {
@@ -64,6 +68,11 @@ namespace KariyerNet.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+            });
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

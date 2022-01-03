@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KariyerNet.Core", "KariyerN
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KariyerNet.Data", "KariyerNet.Data\KariyerNet.Data.csproj", "{1BBFCAA1-1D07-4ED4-85A1-6A597724C5D0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KariyerNet.Service", "KariyerNet.Service\KariyerNet.Service.csproj", "{223460B7-97E4-4BDC-81EB-A41A96F5DAD3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KariyerNet.Business", "KariyerNet.Service\KariyerNet.Business.csproj", "{223460B7-97E4-4BDC-81EB-A41A96F5DAD3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KariyerNet.Dto", "KariyerNet.Dto\KariyerNet.Dto.csproj", "{558F47E4-E10D-4EED-A739-1D0B728556DD}"
 EndProject
